@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rick_and_morty_app/features/rick_and_morty/presentation/logic/bloc/personage_bloc.dart';
-import 'package:rick_and_morty_app/features/rick_and_morty/presentation/widgets/grid_list_view_character_cards.dart';
+import 'package:rick_and_morty_app/features/character/presentation/logic/bloc/personage_bloc.dart';
+import 'package:rick_and_morty_app/features/character/presentation/widgets/grid_list_view_character_cards.dart';
 import 'package:rick_and_morty_app/internal/helpers/color_helper.dart';
 import 'package:rick_and_morty_app/internal/helpers/error_helper.dart';
 
@@ -26,6 +26,11 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   ValueNotifier<bool> isListView = ValueNotifier(true);
+  @override
+  void initState() {
+    personageBloc.add(GetCharacterEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
