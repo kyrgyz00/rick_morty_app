@@ -1,59 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 
 import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
-import '../screens/personage_screen/character_info_screen.dart';
+import '../screens/character_screen/character_info_screen.dart';
 
 class GridViewcaracterCard extends StatelessWidget {
-  final String picture;
+  final List<CharacterModel> charactermodelList;
   final bool colorStatus;
-  final String name;
-  final String status;
-  final String gender;
+  final int index;
+
   const GridViewcaracterCard({
     Key? key,
-    required this.picture,
-    required this.name,
-    required this.status,
-    required this.gender,
     required this.colorStatus,
+    required this.charactermodelList,
+    required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => CharacterInfoscreen())));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => CharacterInfoscreen(
+                      charactermodelList: charactermodelList,
+                      index: index,
+                    ))));
       },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 60.r,
-            child: Image.asset(picture),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: CircleAvatar(
+              radius: 60.r,
+              child: Image.network(charactermodelList[index].image!),
+            ),
           ),
           SizedBox(
             height: 18.h,
           ),
           Text(
-            status,
+            charactermodelList[index]
+                .status
+                .toString()
+                .replaceFirst("Status.", ""),
             style: TextHelper.w500s10.copyWith(
-                color: colorStatus
+                color: charactermodelList[index].status.toString() ==
+                        "Status.ALIVE"
                     ? ColorHelper.CardStatusColorGreen
-                    : ColorHelper.CardStatusColorRed),
+                    : charactermodelList[index].status.toString() ==
+                            "Status.UNKNOWN"
+                        ? Colors.orange
+                        : ColorHelper.CardStatusColorRed),
           ),
           Text(
-            name,
+            charactermodelList[index].name!,
             style:
                 TextHelper.w500s14.copyWith(color: ColorHelper.CardNameColor),
           ),
           Text(
-            gender,
+            charactermodelList[index]
+                .gender
+                .toString()
+                .replaceFirst("Gender.", ""),
             style:
                 TextHelper.w400s12.copyWith(color: ColorHelper.CardGenderColor),
+                textAlign: TextAlign.center,
           ),
         ],
       ),

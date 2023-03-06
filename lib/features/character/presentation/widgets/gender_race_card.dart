@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,8 +5,12 @@ import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
 
 class GenderRaceCard extends StatelessWidget {
+  final String gender;
+  final String species;
   const GenderRaceCard({
     Key? key,
+    required this.gender,
+    required this.species,
   }) : super(key: key);
 
   @override
@@ -26,7 +29,7 @@ class GenderRaceCard extends StatelessWidget {
               height: 4.h,
             ),
             Text(
-              "Мужской",
+              gender,
               style: TextHelper.w400s14,
             ),
           ],
@@ -46,7 +49,7 @@ class GenderRaceCard extends StatelessWidget {
               height: 4.h,
             ),
             Text(
-              "Человек",
+              species,
               style: TextHelper.w400s14,
             )
           ],

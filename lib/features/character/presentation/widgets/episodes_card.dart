@@ -1,19 +1,25 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 
 import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
 
 class EdisodesCard extends StatelessWidget {
+  final List<CharacterModel> chatacterModel;
+  final int indexOfModel;
   const EdisodesCard({
     Key? key,
+    required this.chatacterModel,
+    required this.indexOfModel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        // physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemBuilder: ((context, index) {
           return Padding(
@@ -29,11 +35,12 @@ class EdisodesCard extends StatelessWidget {
                 //   ),
                 // ),
                 Image.asset(
-                  "assets/images/pilot.png",
+                  "assets/images/_image_1.png",
                   width: 74.r,
                 ),
                 SizedBox(width: 16.w),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Серия 1",
@@ -59,6 +66,6 @@ class EdisodesCard extends StatelessWidget {
         separatorBuilder: ((context, index) => SizedBox(
               height: 24.h,
             )),
-        itemCount: 7);
+        itemCount: 10);
   }
 }

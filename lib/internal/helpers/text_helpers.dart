@@ -38,4 +38,8 @@ class TextHelper {
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
+   static TextStyle w700s24 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+  );
 }

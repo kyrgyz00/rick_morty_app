@@ -1,30 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 
 import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
 
 class GridViewListviewIconCard extends StatelessWidget {
+  final int countOfCharacter;
   const GridViewListviewIconCard({
     Key? key,
-    required this.isListView,
-  
+    required this.isListView, required this.countOfCharacter,
   }) : super(key: key);
 
   final ValueNotifier<bool> isListView;
-  
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text(
-          "Всего персонажей: 200",
+          "Всего персонажей: $countOfCharacter",
           style: TextHelper.w400s16
               .copyWith(color: ColorHelper.characterCountColor),
         ),
+        Spacer(),
         IconButton(
           onPressed: (() {
             isListView.value = !isListView.value;

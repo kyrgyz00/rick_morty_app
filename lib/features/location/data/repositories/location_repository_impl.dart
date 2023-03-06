@@ -1,28 +1,28 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
-import 'package:rick_and_morty_app/features/character/domain/repositories/character_repository.dart';
+import 'package:rick_and_morty_app/features/location/data/models/location_model.dart';
+import 'package:rick_and_morty_app/features/location/domain/repositories/location_repository.dart';
 import 'package:rick_and_morty_app/internal/helpers/api_requester.dart';
 
 import '../../../../internal/helpers/error_helper.dart';
 
-class CharacterRepositoryImpl implements CharacterRepository {
+class LocationRepositoryImpl implements LocationRepository {
   @override
-  Future<List<CharacterModel>> getCharacter() async {
+  Future<List<LocationModel>> getLocation() async {
     try {
       APIRequester requester = APIRequester();
-      log("message");
+      log("location message");
       Response response = await requester.toGet(
-        "/character",
+        "/location",
       );
-      log("message");
+      log("location succes");
       log(response.data.runtimeType.toString());
       if (response.statusCode == 200) {
-        List<CharacterModel> characterModelList = response.data["results"]
-            .map<CharacterModel>((el) => CharacterModel.fromJson(el))
+        List<LocationModel> locationModelList = response.data["results"]
+            .map<LocationModel>((el) => LocationModel.fromJson(el))
             .toList();
-        return characterModelList;
+        return locationModelList;
       } else {
         throw ErrorsEnum.invalidError;
       }

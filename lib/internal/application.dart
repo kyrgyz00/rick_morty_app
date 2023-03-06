@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rick_and_morty_app/features/splash_screen/splash_page.dart';
 
-import '../features/character/presentation/screens/personage_screen/search_character_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       builder: ((context, child) {
         return MaterialApp(
           title: 'Flutter Demo',
-          home: CharacterScreen(),
+          home: SplashPage(),
         );
       }),
     );

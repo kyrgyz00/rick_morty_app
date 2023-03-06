@@ -12,6 +12,7 @@ class ColorHelper {
   static Color CardStatusColorGreen = Color(0xff219653);
   static Color CardGenderColor = Color(0xff828282);
   static Color CardStatusColorRed = Color(0xffEB5757);
+  static Color CardStatusColorAmber = Color(0xFFFFF8E1);
   static Color PictureBorderColor = Color(0xffFFFFFF);
   static Color grey828282 = Color(0xff828282);
   static Color grey6 = Color(0xffF2F2F2);

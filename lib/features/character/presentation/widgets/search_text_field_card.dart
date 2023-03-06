@@ -1,14 +1,15 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
 
-class SearchCharaccterWidget extends StatelessWidget {
-  const SearchCharaccterWidget({
+class SearchTextFieldWidget extends StatelessWidget {
+   TextEditingController controller = TextEditingController();
+  final String hinttext;
+   SearchTextFieldWidget({
     Key? key,
+    required this.hinttext,
   }) : super(key: key);
 
   @override
@@ -17,8 +18,9 @@ class SearchCharaccterWidget extends StatelessWidget {
       width: 343.w,
       height: 49.h,
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
-          hintText: "Найти персонажа",
+          hintText: hinttext,
           hintStyle: TextHelper.w400s16.copyWith(
             color: Color(0xffBDBDBD),
           ),

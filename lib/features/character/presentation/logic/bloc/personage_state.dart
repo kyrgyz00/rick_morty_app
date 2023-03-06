@@ -1,19 +1,19 @@
 part of 'personage_bloc.dart';
 
 
-abstract class PersonageState {}
+abstract class CharacterState {}
 
-class PersonageInitial extends PersonageState {}
+class PersonageInitial extends CharacterState {}
 
-class CharacterFetchedState extends PersonageState {
+class CharacterFetchedState extends CharacterState {
   final List<CharacterModel> listOfCharacterModel;
 
   CharacterFetchedState(this.listOfCharacterModel);
 }
 
-class LoadingState extends PersonageState {}
+class LoadingState extends CharacterState {}
 
-class ErrorsState extends PersonageState {
+class ErrorsState extends CharacterState {
   final ErrorsEnum error;
 
   ErrorsState(this.error);

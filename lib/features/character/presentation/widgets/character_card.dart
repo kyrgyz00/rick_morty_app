@@ -1,38 +1,44 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
-import '../screens/personage_screen/character_info_screen.dart';
+import '../../data/models/character_model.dart';
+import '../screens/character_screen/character_info_screen.dart';
 
 class CharacterCard extends StatelessWidget {
-  final String picture;
+  final List<CharacterModel> charactermodelList;
   final bool colorStatus;
-  final String name;
-  final String status;
-  final String gender;
+  final int index;
   const CharacterCard({
     Key? key,
-    required this.picture,
-    required this.name,
-    required this.status,
-    required this.gender,
     required this.colorStatus,
+    required this.charactermodelList,
+    required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => CharacterInfoscreen())));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => CharacterInfoscreen(
+                      charactermodelList: charactermodelList,
+                      index: index,
+                    ))));
       },
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 37.r,
-            child: Image.asset(picture),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: CircleAvatar(
+              radius: 37.r,
+              child: Image.network(
+                charactermodelList[index].image.toString(),
+              ),
+            ),
           ),
           SizedBox(
             width: 18.w,
@@ -42,19 +48,26 @@ class CharacterCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                status,
+                charactermodelList[index]
+                    .status
+                    .toString()
+                    .replaceFirst("Status.", ""),
                 style: TextHelper.w500s10.copyWith(
-                    color: colorStatus
+                    color: charactermodelList[index].status.toString() ==
+                            "Status.ALIVE"
                         ? ColorHelper.CardStatusColorGreen
-                        : ColorHelper.CardStatusColorRed),
+                        : charactermodelList[index].status.toString() ==
+                                "Status.UNKNOWN"
+                            ? Colors.orange
+                            : ColorHelper.CardStatusColorRed),
               ),
               Text(
-                name,
+                charactermodelList[index].name.toString(),
                 style: TextHelper.w500s16
                     .copyWith(color: ColorHelper.CardNameColor),
               ),
               Text(
-                gender,
+                " ${charactermodelList[index].species.toString().replaceFirst("Species.", "")}, ${charactermodelList[index].gender.toString().replaceFirst("Gender.", "")}",
                 style: TextHelper.w400s12
                     .copyWith(color: ColorHelper.CardGenderColor),
               ),

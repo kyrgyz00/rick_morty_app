@@ -8,8 +8,8 @@ import '../../../data/models/character_model.dart';
 part 'personage_event.dart';
 part 'personage_state.dart';
 
-class PersonageBloc extends Bloc<PersonageEvent, PersonageState> {
-  PersonageBloc() : super(PersonageInitial()) {
+class CharacterBloc extends Bloc<CharacterEvent,CharacterState> {
+  CharacterBloc() : super(PersonageInitial()) {
     on<GetCharacterEvent>((event, emit) async {
       emit(LoadingState());
       try {
@@ -22,5 +22,6 @@ class PersonageBloc extends Bloc<PersonageEvent, PersonageState> {
         emit(ErrorsState(ErrorsEnum.invalidError));
       }
     });
+  
   }
 }
