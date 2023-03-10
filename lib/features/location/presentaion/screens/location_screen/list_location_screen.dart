@@ -38,7 +38,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
         },
         builder: (context, state) {
           if (state is LocationLoadingState) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(color: Colors.blue),
             );
           }

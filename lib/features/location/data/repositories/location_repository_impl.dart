@@ -19,20 +19,10 @@ class LocationRepositoryImpl implements LocationRepository {
         "/location",
       );
       log("location succes");
-      log(response.data.runtimeType.toString());
       if (response.statusCode == 200) {
         locationModelList = response.data["results"]
             .map<LocationModel>((el) => LocationModel.fromJson(el))
             .toList();
-        for (var element in locationModelList) {
-          List<CharacterModel> charesters = [];
-          for (var element in element.residents ?? []) {
-            Response charecterResponse = await requester.toGet(
-                '/character/${element.replaceAll(new RegExp('[z0-9]'), "")}');
-            charesters.add(CharacterModel.fromJson(response.data));
-          }
-          element.residentsModel!.addAll(charesters);
-        }
 
         return locationModelList;
       } else {
@@ -42,5 +32,18 @@ class LocationRepositoryImpl implements LocationRepository {
       log(e.toString());
       throw ErrorsEnum.invalidError;
     }
+  }
+
+  @override
+  Future<List<CharacterModel>> getLocationCharecters(
+      LocationModel locationModel) async {
+    List<CharacterModel> charesters = [];
+    for (var element in locationModel.residents ?? []) {
+      Response charecterResponse = await requester
+          .toGet('/character/${element.replaceAll(RegExp('[^0-9]'), "")}');
+
+      charesters.add(CharacterModel.fromJson(charecterResponse.data));
+    }
+    return charesters;
   }
 }

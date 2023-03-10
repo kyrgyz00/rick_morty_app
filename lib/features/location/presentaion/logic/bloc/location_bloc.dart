@@ -19,7 +19,23 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         List<LocationModel> locationModelList =
             await LocationUseCase().getLocation();
         log(locationModelList.toString());
-        emit(LocationFetchedState(locationModelList,));
+        emit(LocationFetchedState(
+          locationModelList,
+        ));
+      } catch (e) {
+        log(e.toString());
+        emit(ErrorsState(ErrorsEnum.invalidError));
+      }
+    });
+    on<GetLocationCharecters>((event, emit) async {
+      log("message1111");
+      emit(LocationLoadingState());
+      try {
+        List<CharacterModel> charecterModelList =
+            await LocationUseCase().getLocationCharecters(event.locationModel);
+        emit(LocationCharectersFetchedState(
+          charecterModelList,
+        ));
       } catch (e) {
         log(e.toString());
         emit(ErrorsState(ErrorsEnum.invalidError));

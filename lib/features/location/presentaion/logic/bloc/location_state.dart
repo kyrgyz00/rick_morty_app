@@ -8,7 +8,15 @@ class LocationFetchedState extends LocationState {
   final List<LocationModel> listOfLOcationModel;
   // final List<CharacterModel> characterModel;
   LocationFetchedState(
-    this.listOfLOcationModel, 
+    this.listOfLOcationModel,
+  );
+}
+
+class LocationCharectersFetchedState extends LocationState {
+  final List<CharacterModel> listOfCharectesModels;
+  // final List<CharacterModel> characterModel;
+  LocationCharectersFetchedState(
+    this.listOfCharectesModels,
   );
 }
 

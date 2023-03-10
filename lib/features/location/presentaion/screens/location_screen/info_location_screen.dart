@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rick_and_morty_app/features/location/data/models/location_model.dart';
+import 'package:rick_and_morty_app/features/location/presentaion/logic/bloc/location_bloc.dart';
 import 'package:rick_and_morty_app/internal/helpers/text_helpers.dart';
 
 import '../../../../../internal/helpers/color_helper.dart';
 
-class InfoLocationScreen extends StatelessWidget {
+class InfoLocationScreen extends StatefulWidget {
   final LocationModel listLocation;
   const InfoLocationScreen({
     super.key,
     required this.listLocation,
   });
+
+  @override
+  State<InfoLocationScreen> createState() => _InfoLocationScreenState();
+}
+
+class _InfoLocationScreenState extends State<InfoLocationScreen> {
+  late LocationBloc bloc;
+  @override
+  void initState() {
+    bloc = LocationBloc();
+    bloc.add(GetLocationCharecters(widget.listLocation));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +52,7 @@ class InfoLocationScreen extends StatelessWidget {
                   right: 16.w,
                   top: 34.h,
                 ),
-                width: 375.h,
+                width: 1.sw,
                 decoration: BoxDecoration(
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
@@ -46,13 +61,13 @@ class InfoLocationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      listLocation.name!,
+                      widget.listLocation.name!,
                       style: TextHelper.w700s24,
                     ),
                     Row(
                       children: [
                         Text(
-                          listLocation.type!,
+                          widget.listLocation.type!,
                           style: TextHelper.w400s12
                               .copyWith(color: ColorHelper.grey828282),
                         ),
@@ -66,7 +81,7 @@ class InfoLocationScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          listLocation.dimension!,
+                          widget.listLocation.dimension!,
                           style: TextHelper.w400s12
                               .copyWith(color: ColorHelper.grey828282),
                         ),
@@ -86,43 +101,56 @@ class InfoLocationScreen extends StatelessWidget {
                       "Персонажи",
                       style: TextHelper.w500s20,
                     ),
-                    ListView.separated(
-                      padding: EdgeInsets.only(top: 24.h),
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: ((context, index) {
-                        return Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.network(
-                                listLocation.residentsModel![index].image!,
-                                width: 74.r,
-                              ),
-                            ),
-                            SizedBox(width: 18.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(listLocation.residentsModel![index].status.toString()),
-                                Text(listLocation.residentsModel![index].name!),
-                                Text("${listLocation.residentsModel![index].gender}, ${listLocation.residentsModel![index].species}"),
-                              ],
-                            ),
-                            Spacer(),
-                            IconButton(
-                              onPressed: (() {}),
-                              icon: Icon(
-                                Icons.navigate_next_rounded,
-                                size: 24.r,
-                              ),
-                            )
-                          ],
-                        );
-                      }),
-                      itemCount: listLocation.residentsModel!.length,
-                      separatorBuilder: ((context, index) =>
-                          SizedBox(height: 24.h)),
+                    BlocBuilder<LocationBloc, LocationState>(
+                      bloc: bloc,
+                      builder: (context, state) {
+                        if (state is LocationCharectersFetchedState) {
+                          return ListView.separated(
+                            padding: EdgeInsets.only(top: 24.h),
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: ((context, index) {
+                              return Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      state.listOfCharectesModels[index].image!,
+                                      width: 74.r,
+                                    ),
+                                  ),
+                                  SizedBox(width: 18.w),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(state
+                                          .listOfCharectesModels[index].status
+                                          .toString()),
+                                      Text(state
+                                          .listOfCharectesModels[index].name!),
+                                      Text(
+                                          "${state.listOfCharectesModels[index].gender}, ${state.listOfCharectesModels[index].species}"),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  IconButton(
+                                    onPressed: (() {}),
+                                    icon: Icon(
+                                      Icons.navigate_next_rounded,
+                                      size: 24.r,
+                                    ),
+                                  )
+                                ],
+                              );
+                            }),
+                            itemCount: state.listOfCharectesModels.length,
+                            separatorBuilder: ((context, index) =>
+                                SizedBox(height: 24.h)),
+                          );
+                        }
+                        return const CircularProgressIndicator();
+                      },
                     )
                   ],
                 ),
