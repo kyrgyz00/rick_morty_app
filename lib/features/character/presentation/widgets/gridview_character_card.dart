@@ -7,7 +7,7 @@ import '../../../../internal/helpers/text_helpers.dart';
 import '../screens/character_screen/character_info_screen.dart';
 
 class GridViewcaracterCard extends StatelessWidget {
-  final List<CharacterModel> charactermodelList;
+  final CharacterModel charactermodelList;
   final bool colorStatus;
   final int index;
 
@@ -27,7 +27,6 @@ class GridViewcaracterCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: ((context) => CharacterInfoscreen(
                       charactermodelList: charactermodelList,
-                      index: index,
                     ))));
       },
       child: Column(
@@ -37,33 +36,33 @@ class GridViewcaracterCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             child: CircleAvatar(
               radius: 60.r,
-              child: Image.network(charactermodelList[index].image!),
+              child: Image.network(charactermodelList.image!),
             ),
           ),
           SizedBox(
             height: 18.h,
           ),
           Text(
-            charactermodelList[index]
+            charactermodelList
                 .status
                 .toString()
                 .replaceFirst("Status.", ""),
             style: TextHelper.w500s10.copyWith(
-                color: charactermodelList[index].status.toString() ==
+                color: charactermodelList.status.toString() ==
                         "Status.ALIVE"
                     ? ColorHelper.CardStatusColorGreen
-                    : charactermodelList[index].status.toString() ==
+                    : charactermodelList.status.toString() ==
                             "Status.UNKNOWN"
                         ? Colors.orange
                         : ColorHelper.CardStatusColorRed),
           ),
           Text(
-            charactermodelList[index].name!,
+            charactermodelList.name!,
             style:
                 TextHelper.w500s14.copyWith(color: ColorHelper.CardNameColor),
           ),
           Text(
-            charactermodelList[index]
+            charactermodelList
                 .gender
                 .toString()
                 .replaceFirst("Gender.", ""),

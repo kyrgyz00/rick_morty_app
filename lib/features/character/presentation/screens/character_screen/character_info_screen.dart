@@ -10,10 +10,11 @@ import '../../widgets/loaction_info_widget.dart';
 import '../../widgets/profile_stack_card.dart';
 
 class CharacterInfoscreen extends StatelessWidget {
-  final List<CharacterModel> charactermodelList;
-  final int index;
-  const CharacterInfoscreen(
-      {super.key, required this.charactermodelList, required this.index});
+  final CharacterModel charactermodelList;
+  const CharacterInfoscreen({
+    super.key,
+    required this.charactermodelList,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +36,18 @@ class CharacterInfoscreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ProfileStackCard(image: charactermodelList[index].image.toString()),
+            ProfileStackCard(image: charactermodelList.image.toString()),
             Text(
-              charactermodelList[index].name.toString(),
+              charactermodelList.name.toString(),
               style: TextHelper.w400s34,
             ),
             SizedBox(height: 24.h),
             Text(
-              charactermodelList[index]
-                  .status
-                  .toString()
-                  .replaceFirst("Status.", ""),
+              charactermodelList.status.toString().replaceFirst("Status.", ""),
               style: TextHelper.w500s10.copyWith(
-                  color: charactermodelList[index].status.toString() ==
-                          "Status.ALIVE"
+                  color: charactermodelList.status.toString() == "Status.ALIVE"
                       ? ColorHelper.CardStatusColorGreen
-                      : charactermodelList[index].status.toString() ==
-                              "Status.UNKNOWN"
+                      : charactermodelList.status.toString() == "Status.UNKNOWN"
                           ? Colors.amber
                           : ColorHelper.CardStatusColorRed),
             ),
@@ -70,12 +66,10 @@ class CharacterInfoscreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: GenderRaceCard(
-                gender: charactermodelList[index]
-                    .gender
+                gender: charactermodelList.gender
                     .toString()
                     .replaceFirst("Gender.", ""),
-                species: charactermodelList[index]
-                    .species
+                species: charactermodelList.species
                     .toString()
                     .replaceFirst("Species.", ""),
               ),
@@ -88,7 +82,7 @@ class CharacterInfoscreen extends StatelessWidget {
                 24.h,
               ),
               child: LocationInfoWidget(
-                location: charactermodelList[index].origin!.name.toString(),
+                location: charactermodelList.origin!.name.toString(),
                 title: "Место рождения",
               ),
             ),
@@ -101,7 +95,7 @@ class CharacterInfoscreen extends StatelessWidget {
               ),
               child: LocationInfoWidget(
                 title: "Местоположение",
-                location: charactermodelList[index].location!.name.toString(),
+                location: charactermodelList.location!.name.toString(),
               ),
             ),
             Divider(
@@ -131,8 +125,7 @@ class CharacterInfoscreen extends StatelessWidget {
               ),
             ),
             EdisodesCard(
-              chatacterModel: charactermodelList,
-              indexOfModel: index,
+              characterModel: charactermodelList,
             ),
           ],
         ),
@@ -140,5 +133,3 @@ class CharacterInfoscreen extends StatelessWidget {
     );
   }
 }
-
-

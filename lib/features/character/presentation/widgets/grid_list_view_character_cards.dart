@@ -18,9 +18,8 @@ class GridLIstViewCharacter extends StatelessWidget {
             child: ListView.separated(
                 itemBuilder: ((context, index) {
                   return CharacterCard(
-                    colorStatus: true,
-                    charactermodelList: charactermodelList,
-                    index: index,
+                    // colorStatus: true,
+                    charactermodelList: charactermodelList[index],
                   );
                 }),
                 separatorBuilder: ((context, index) {
@@ -41,7 +40,7 @@ class GridLIstViewCharacter extends StatelessWidget {
               ),
               itemBuilder: (context, index) => GridViewcaracterCard(
                 colorStatus: true,
-                charactermodelList: charactermodelList,
+                charactermodelList: charactermodelList[index],
                 index: index,
               ),
             ),

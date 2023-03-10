@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'features/character/presentation/screens/character_screen/list_characters_screen.dart';
+import 'features/episodes/presentation/screens/list_episodes_screen.dart';
 import 'features/location/presentaion/screens/location_screen/list_location_screen.dart';
 import 'internal/helpers/color_helper.dart';
 
@@ -21,6 +22,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   List<Widget> ListOfPages = [
     CharacterScreen(),
     ListLocationScreen(),
+    EpisodesScreen(),
     // CharacterScreen(),
     // ListLocationScreen(),
   ];
@@ -58,13 +60,13 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
               width: 24.r,
             ),
           ),
-          // BottomNavigationBarItem(
-          //   label: "Эпизоды",
-          //   icon: Image.asset(
-          //     "assets/icon/episode.png",
-          //     width: 24.r,
-          //   ),
-          // ),
+          BottomNavigationBarItem(
+            label: "Эпизоды",
+            icon: Image.asset(
+              "assets/icon/episode.png",
+              width: 24.r,
+            ),
+          ),
           // BottomNavigationBarItem(
           //   label: "Настройки",
           //   icon: Image.asset(

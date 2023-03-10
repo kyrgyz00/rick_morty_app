@@ -8,10 +8,11 @@ import 'package:rick_and_morty_app/internal/helpers/api_requester.dart';
 import '../../../../internal/helpers/error_helper.dart';
 
 class CharacterRepositoryImpl implements CharacterRepository {
+  APIRequester requester = APIRequester();
+  late List<CharacterModel> characterModelList;
   @override
   Future<List<CharacterModel>> getCharacter() async {
     try {
-      APIRequester requester = APIRequester();
       log("message");
       Response response = await requester.toGet(
         "/character",
@@ -19,7 +20,7 @@ class CharacterRepositoryImpl implements CharacterRepository {
       log("message");
       log(response.data.runtimeType.toString());
       if (response.statusCode == 200) {
-        List<CharacterModel> characterModelList = response.data["results"]
+        characterModelList = response.data["results"]
             .map<CharacterModel>((el) => CharacterModel.fromJson(el))
             .toList();
         return characterModelList;

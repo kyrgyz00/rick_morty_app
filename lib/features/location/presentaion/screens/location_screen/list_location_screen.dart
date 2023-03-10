@@ -60,17 +60,15 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                       ),
                     ),
                     SizedBox(height: 24.h),
-                    LocationListViewCard(listLocation: state.listOfLOcationModel,),
+                    LocationListViewCard(
+                      listLocation: state.listOfLOcationModel,
+                    ),
                   ],
                 ),
               ),
             );
           }
-          return Container(
-            height: 200,
-            width: 200,
-            color: Colors.amber,
-          );
+          return SizedBox();
         },
       ),
     );

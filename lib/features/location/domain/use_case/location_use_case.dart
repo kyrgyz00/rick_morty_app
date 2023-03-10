@@ -4,6 +4,8 @@ import 'package:rick_and_morty_app/features/location/data/repositories/location_
 
 class LocationUseCase {
   LocationRepositoryImpl locationRepositoryImpl = LocationRepositoryImpl();
+  
+
   Future<List<LocationModel>> getLocation() async =>
       await locationRepositoryImpl.getLocation();
 }

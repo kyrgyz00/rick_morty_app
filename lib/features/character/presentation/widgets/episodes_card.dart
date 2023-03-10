@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 
@@ -6,12 +7,10 @@ import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
 
 class EdisodesCard extends StatelessWidget {
-  final List<CharacterModel> chatacterModel;
-  final int indexOfModel;
+  final CharacterModel characterModel;
   const EdisodesCard({
     Key? key,
-    required this.chatacterModel,
-    required this.indexOfModel,
+    required this.characterModel,
   }) : super(key: key);
 
   @override
@@ -59,6 +58,10 @@ class EdisodesCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                Spacer(),
+                IconButton(
+                    onPressed: (() {}),
+                    icon: Icon(Icons.navigate_next_outlined))
               ],
             ),
           );

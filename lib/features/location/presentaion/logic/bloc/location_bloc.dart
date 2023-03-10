@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 
 import '../../../../../internal/helpers/error_helper.dart';
 import '../../../domain/use_case/location_use_case.dart';
@@ -18,7 +19,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         List<LocationModel> locationModelList =
             await LocationUseCase().getLocation();
         log(locationModelList.toString());
-        emit(LocationFetchedState(locationModelList));
+        emit(LocationFetchedState(locationModelList,));
       } catch (e) {
         log(e.toString());
         emit(ErrorsState(ErrorsEnum.invalidError));

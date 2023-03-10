@@ -6,12 +6,10 @@ import 'package:rick_and_morty_app/internal/helpers/text_helpers.dart';
 import '../../../../../internal/helpers/color_helper.dart';
 
 class InfoLocationScreen extends StatelessWidget {
-  final List<LocationModel> listLocation;
-  final int index;
+  final LocationModel listLocation;
   const InfoLocationScreen({
     super.key,
     required this.listLocation,
-    required this.index,
   });
 
   @override
@@ -48,13 +46,13 @@ class InfoLocationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      listLocation[index].name!,
+                      listLocation.name!,
                       style: TextHelper.w700s24,
                     ),
                     Row(
                       children: [
                         Text(
-                          listLocation[index].type!,
+                          listLocation.type!,
                           style: TextHelper.w400s12
                               .copyWith(color: ColorHelper.grey828282),
                         ),
@@ -68,7 +66,7 @@ class InfoLocationScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          listLocation[index].dimension!,
+                          listLocation.dimension!,
                           style: TextHelper.w400s12
                               .copyWith(color: ColorHelper.grey828282),
                         ),
@@ -97,8 +95,8 @@ class InfoLocationScreen extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                "assets/images/_image_1.png",
+                              child: Image.network(
+                                listLocation.residentsModel![index].image!,
                                 width: 74.r,
                               ),
                             ),
@@ -106,9 +104,9 @@ class InfoLocationScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Status"),
-                                Text("Name"),
-                                Text("gender humiduti"),
+                                Text(listLocation.residentsModel![index].status.toString()),
+                                Text(listLocation.residentsModel![index].name!),
+                                Text("${listLocation.residentsModel![index].gender}, ${listLocation.residentsModel![index].species}"),
                               ],
                             ),
                             Spacer(),
@@ -122,7 +120,7 @@ class InfoLocationScreen extends StatelessWidget {
                           ],
                         );
                       }),
-                      itemCount: 10,
+                      itemCount: listLocation.residentsModel!.length,
                       separatorBuilder: ((context, index) =>
                           SizedBox(height: 24.h)),
                     )
