@@ -37,7 +37,7 @@ class InfoLocationScreen extends StatelessWidget {
                   right: 16.w,
                   top: 34.h,
                 ),
-                width: 375.h,
+                width: 375.w,
                 decoration: BoxDecoration(
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(26)),

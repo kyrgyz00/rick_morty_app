@@ -28,8 +28,8 @@ class LocationRepositoryImpl implements LocationRepository {
           List<CharacterModel> charesters = [];
           for (var element in element.residents ?? []) {
             Response charecterResponse = await requester.toGet(
-                '/character/${element.replaceAll(new RegExp('[z0-9]'), "")}');
-            charesters.add(CharacterModel.fromJson(response.data));
+                '/character/${element.replaceAll(new RegExp('[^0-9]'), "")}');
+            charesters.add(CharacterModel.fromJson(charecterResponse.data));
           }
           element.residentsModel!.addAll(charesters);
         }

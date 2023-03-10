@@ -46,10 +46,13 @@ class SeriesCard extends StatelessWidget {
                         style: TextHelper.w500s10
                             .copyWith(color: ColorHelper.bluew22A2BD),
                       ),
-                      Text(
-                        episodeModel[index].name!,
-                        style: TextHelper.w500s16
-                            .copyWith(color: ColorHelper.CardNameColor),
+                      SizedBox(
+                        width: 0.5.sw,
+                        child: Text(
+                          episodeModel[index].name!,
+                          style: TextHelper.w500s16
+                              .copyWith(color: ColorHelper.CardNameColor),
+                        ),
                       ),
                       Text(
                         episodeModel[index].airDate!,

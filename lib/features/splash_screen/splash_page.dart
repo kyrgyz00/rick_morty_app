@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Image.asset(
         "assets/images/start_page.png",
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       ),
     );
   }
