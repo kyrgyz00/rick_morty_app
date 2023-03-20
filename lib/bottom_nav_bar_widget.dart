@@ -1,44 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rick_and_morty_app/features/settings/presentation/screens/settings_screen.dart';
 import 'features/character/presentation/screens/character_screen/list_characters_screen.dart';
 import 'features/episodes/presentation/screens/list_episodes_screen.dart';
 import 'features/location/presentaion/screens/location_screen/list_location_screen.dart';
 import 'internal/helpers/color_helper.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
-  BottomNavBarWidget({super.key});
+  const BottomNavBarWidget({super.key});
 
   @override
   State<BottomNavBarWidget> createState() => _BottomNavBarWidgetState();
 }
 
 class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
-  int widgetIndex = 0;
+  int _selectedTab = 0;
   void onItemSelected(int index) {
-    widgetIndex = index;
-    setState(() {});
+    if (_selectedTab == index) {
+      setState(() {});
+    }
+    _selectedTab = index;
   }
-
-  List<Widget> ListOfPages = [
-    CharacterScreen(),
-    ListLocationScreen(),
-    EpisodesScreen(),
-    // CharacterScreen(),
-    // ListLocationScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListOfPages.elementAt(widgetIndex),
+      body: IndexedStack(
+        index: _selectedTab,
+        children: const [
+          CharacterScreen(),
+          ListLocationScreen(),
+          EpisodesScreen(),
+          SettingsScreen()
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        // selectedLabelStyle: TextStyle(color: Color(0xff22A2BD)),
+        elevation: 40,
         selectedItemColor: Color(0xff22A2BD),
-        // unselectedItemColor: Color(0xffBDBDBD),
         backgroundColor: Colors.white,
-        currentIndex: widgetIndex,
+        currentIndex: _selectedTab,
         onTap: onItemSelected,
-        // ignore: prefer_const_literals_to_create_immutables
         items: [
           BottomNavigationBarItem(
             label: "Персонажи",
@@ -67,13 +68,13 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
               width: 24.r,
             ),
           ),
-          // BottomNavigationBarItem(
-          //   label: "Настройки",
-          //   icon: Image.asset(
-          //     "assets/icon/setting.png",
-          //     width: 24.r,
-          //   ),
-          // ),
+          BottomNavigationBarItem(
+            label: "Настройки",
+            icon: Image.asset(
+              "assets/icon/setting.png",
+              width: 24.r,
+            ),
+          ),
         ],
       ),
     );

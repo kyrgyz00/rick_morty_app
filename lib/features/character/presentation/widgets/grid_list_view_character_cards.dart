@@ -7,43 +7,52 @@ import 'gridview_character_card.dart';
 
 class GridLIstViewCharacter extends StatelessWidget {
   final ValueNotifier<bool> isListView;
-  final List<CharacterModel> charactermodelList;
+  final List<CharacterModel> characterModelList;
   const GridLIstViewCharacter(
-      {super.key, required this.isListView, required this.charactermodelList});
+      {super.key, required this.isListView, required this.characterModelList});
 
   @override
   Widget build(BuildContext context) {
-    return isListView.value
-        ? Expanded(
-            child: ListView.separated(
-                itemBuilder: ((context, index) {
-                  return CharacterCard(
-                    // colorStatus: true,
-                    charactermodelList: charactermodelList[index],
-                  );
-                }),
-                separatorBuilder: ((context, index) {
-                  return SizedBox(
-                    height: 24.h,
-                  );
-                }),
-                itemCount: charactermodelList.length),
-          )
-        : Expanded(
-            child: GridView.builder(
-              itemCount: charactermodelList.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 226,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-              ),
-              itemBuilder: (context, index) => GridViewcaracterCard(
-                colorStatus: true,
-                charactermodelList: charactermodelList[index],
-                index: index,
-              ),
-            ),
+    return characterModelList.isNotEmpty
+        ? isListView.value
+            ? Expanded(
+                child: ListView.separated(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    itemBuilder: ((context, index) {
+                      return CharacterCard(
+                        // colorStatus: true,
+                        characterModelList: characterModelList[index],
+                      );
+                    }),
+                    separatorBuilder: ((context, index) {
+                      return SizedBox(
+                        height: 24.h,
+                      );
+                    }),
+                    itemCount: characterModelList.length),
+              )
+            : Expanded(
+                child: GridView.builder(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: characterModelList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: 226,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                  ),
+                  itemBuilder: (context, index) => GridViewcaracterCard(
+                    colorStatus: true,
+                    charactermodel: characterModelList[index],
+                    index: index,
+                  ),
+                ),
+              )
+        : const Text(
+            'No results found',
+            style: TextStyle(fontSize: 24),
           );
   }
 }

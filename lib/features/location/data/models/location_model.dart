@@ -9,7 +9,6 @@ class LocationModel {
     this.name,
     this.type,
     this.dimension,
-    this.residentsModel,
     this.residents,
     this.url,
     this.created,
@@ -20,7 +19,6 @@ class LocationModel {
   final String? type;
   final String? dimension;
   final List<String>? residents;
-  List<CharacterModel>? residentsModel = [];
   final String? url;
   final DateTime? created;
   final String? image;

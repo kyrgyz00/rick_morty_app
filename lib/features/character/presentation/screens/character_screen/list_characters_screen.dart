@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rick_and_morty_app/bottom_nav_bar_widget.dart';
+import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 import 'package:rick_and_morty_app/features/character/presentation/logic/bloc/personage_bloc.dart';
 import 'package:rick_and_morty_app/features/character/presentation/widgets/grid_list_view_character_cards.dart';
 import 'package:rick_and_morty_app/internal/helpers/color_helper.dart';
@@ -18,12 +19,15 @@ class CharacterScreen extends StatefulWidget {
 }
 
 class _CharacterScreenState extends State<CharacterScreen> {
-  final CharacterBloc personageBloc = CharacterBloc();
+  CharacterBloc personageBloc = CharacterBloc();
 
   ValueNotifier<bool> isListView = ValueNotifier(true);
+  List<CharacterModel> characterModelList = [];
+
   @override
   void initState() {
     personageBloc.add(GetCharacterEvent());
+
     super.initState();
   }
 
@@ -34,6 +38,10 @@ class _CharacterScreenState extends State<CharacterScreen> {
       body: BlocConsumer<CharacterBloc, CharacterState>(
         bloc: personageBloc,
         listener: (context, state) {
+          if (state is CharacterFetchedState) {
+            characterModelList = state.listOfCharacterModel;
+            
+          }
           if (state is ErrorsState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(getErrors(state.error))));
@@ -45,8 +53,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
               valueListenable: isListView,
               builder: ((context, value, child) {
                 if (state is LoadingState) {
-                  return Center(
-                    child: CircularProgressIndicator(color: Colors.blue),
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   );
                 }
 
@@ -54,21 +62,23 @@ class _CharacterScreenState extends State<CharacterScreen> {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Column(
-                      
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SearchTextFieldWidget(hinttext: "Найти персонажа",),
+                          SearchTextFieldWidget(
+                            hinttext: "Найти персонажа",
+                            characterModelList: characterModelList,
+                          ),
                           Padding(
                             padding: EdgeInsets.only(top: 24.h, bottom: 28.h),
                             child: GridViewListviewIconCard(
                               isListView: isListView,
                               countOfCharacter:
-                                  state.listOfCharacterModel.length,
+                                  characterModelList.length,
                             ),
                           ),
                           GridLIstViewCharacter(
                             isListView: isListView,
-                            charactermodelList: state.listOfCharacterModel,
+                            characterModelList: characterModelList,
                           )
                         ]),
                   );

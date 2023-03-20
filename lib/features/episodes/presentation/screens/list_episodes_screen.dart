@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 import 'package:rick_and_morty_app/features/episodes/presentation/logic/bloc/episodes_bloc.dart';
-import 'package:rick_and_morty_app/internal/helpers/color_helper.dart';
-import 'package:rick_and_morty_app/internal/helpers/text_helpers.dart';
 
 import '../../../../internal/helpers/error_helper.dart';
 import '../widgets/search_episode_widget.dart';
@@ -18,6 +17,8 @@ class EpisodesScreen extends StatefulWidget {
 
 class _EpisodesScreenState extends State<EpisodesScreen> {
   EpisodesBloc episodesBloc = EpisodesBloc();
+ 
+
   @override
   void initState() {
     episodesBloc.add(GetEpisodeEvent());
@@ -47,7 +48,9 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
                       hinttext: "Найти эпизод",
                     ),
                     SizedBox(height: 8.h),
-                    TabBarWidget(episodeModel: state.episodeModel,)
+                    TabBarWidget(
+                      episodeModel: state.episodeModel,
+                    )
                   ],
                 ),
               ),

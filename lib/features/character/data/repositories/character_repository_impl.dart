@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 import 'package:rick_and_morty_app/features/character/domain/repositories/character_repository.dart';
+import 'package:rick_and_morty_app/features/character/presentation/logic/bloc/personage_bloc.dart';
+import 'package:rick_and_morty_app/features/episodes/data/models/episode_model.dart';
 import 'package:rick_and_morty_app/internal/helpers/api_requester.dart';
 
 import '../../../../internal/helpers/error_helper.dart';
@@ -30,6 +32,28 @@ class CharacterRepositoryImpl implements CharacterRepository {
     } catch (e) {
       log(e.toString());
       throw ErrorsEnum.invalidError;
+    }
+  }
+
+  @override
+  Future<List<EpisodeModel>> getCharacterEpisode(
+      CharacterModel characterModel) async {
+    List<EpisodeModel> episodeModel = [];
+
+    try {
+      for (var element in characterModel.episode ?? []) {
+        Response episodeResponse = await requester
+            .toGet('/episode/${element.replaceAll(RegExp('[^0-9]'), "")}');
+        episodeModel.add(EpisodeModel.fromJson(episodeResponse.data));
+      }
+      return episodeModel;
+    } catch (e) {
+      log(e.toString());
+      if (e is ErrorsEnum) {
+        throw ErrorsState(e);
+      } else {
+        throw ErrorsEnum.invalidError;
+      }
     }
   }
 }

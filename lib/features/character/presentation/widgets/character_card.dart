@@ -7,13 +7,13 @@ import '../../data/models/character_model.dart';
 import '../screens/character_screen/character_info_screen.dart';
 
 class CharacterCard extends StatelessWidget {
-  final CharacterModel charactermodelList;
+  final CharacterModel characterModelList;
   // final bool colorStatus;
   // final int index;
   const CharacterCard({
     Key? key,
     // required this.colorStatus,
-    required this.charactermodelList,
+    required this.characterModelList,
     // required this.index,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class CharacterCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: ((context) => CharacterInfoscreen(
-                      charactermodelList: charactermodelList,
+                      charactermodel: characterModelList,
                     ))));
       },
       child: Row(
@@ -35,7 +35,7 @@ class CharacterCard extends StatelessWidget {
             child: CircleAvatar(
               radius: 37.r,
               child: Image.network(
-                charactermodelList.image.toString(),
+                characterModelList.image.toString(),
               ),
             ),
           ),
@@ -47,26 +47,26 @@ class CharacterCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                charactermodelList
+                characterModelList
                     .status
                     .toString()
                     .replaceFirst("Status.", ""),
                 style: TextHelper.w500s10.copyWith(
-                    color: charactermodelList.status.toString() ==
+                    color: characterModelList.status.toString() ==
                             "Status.ALIVE"
                         ? ColorHelper.CardStatusColorGreen
-                        : charactermodelList.status.toString() ==
+                        : characterModelList.status.toString() ==
                                 "Status.UNKNOWN"
                             ? Colors.orange
                             : ColorHelper.CardStatusColorRed),
               ),
               Text(
-                charactermodelList.name.toString(),
+                characterModelList.name.toString(),
                 style: TextHelper.w500s16
                     .copyWith(color: ColorHelper.CardNameColor),
               ),
               Text(
-                " ${charactermodelList.species.toString().replaceFirst("Species.", "")}, ${charactermodelList.gender.toString().replaceFirst("Gender.", "")}",
+                " ${characterModelList.species.toString().replaceFirst("Species.", "")}, ${characterModelList.gender.toString().replaceFirst("Gender.", "")}",
                 style: TextHelper.w400s12
                     .copyWith(color: ColorHelper.CardGenderColor),
               ),

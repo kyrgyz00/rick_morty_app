@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
-import 'package:rick_and_morty_app/features/character/presentation/widgets/character_card.dart';
 import 'package:rick_and_morty_app/features/episodes/data/models/episode_model.dart';
 import 'package:rick_and_morty_app/internal/helpers/color_helper.dart';
 import 'package:rick_and_morty_app/internal/helpers/text_helpers.dart';
 
+import 'episode_character_card.dart';
+
 class EpisodeInfoCard extends StatelessWidget {
   final EpisodeModel episodeInfo;
-  EpisodeInfoCard({
+  const EpisodeInfoCard({
     Key? key,
     required this.episodeInfo,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class EpisodeInfoCard extends StatelessWidget {
       padding: EdgeInsets.only(top: 82.h),
       width: 375.w,
       // height: 800.h,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Color(0xffFFFFFF),
           borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
       child: Column(
@@ -91,60 +91,7 @@ class EpisodeInfoCard extends StatelessWidget {
               style: TextHelper.w500s20,
             ),
           ),
-          ListView.separated(
-              padding: EdgeInsets.only(
-                top: 24.h,
-                right: 16.w,
-                left: 16.w,
-              ),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: ((context, index) => InkWell(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: CircleAvatar(
-                            radius: 37.r,
-                            child: Image.asset(
-                              "assets/images/_image_2.png",
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 18.w,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "status",
-                              style: TextHelper.w500s10.copyWith(
-                                  color: ColorHelper.CardStatusColorRed),
-                            ),
-                            Text(
-                              "name",
-                              style: TextHelper.w500s16
-                                  .copyWith(color: ColorHelper.CardNameColor),
-                            ),
-                            Text(
-                              " species, gender",
-                              style: TextHelper.w400s12
-                                  .copyWith(color: ColorHelper.CardGenderColor),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        IconButton(
-                            onPressed: (() {}),
-                            icon: Icon(Icons.navigate_next_outlined))
-                      ],
-                    ),
-                  )),
-              separatorBuilder: ((context, index) => SizedBox(height: 24.h)),
-              itemCount: 10)
+          EpisodeCharacterCard(episodeModel: episodeInfo,)
         ],
       ),
     );

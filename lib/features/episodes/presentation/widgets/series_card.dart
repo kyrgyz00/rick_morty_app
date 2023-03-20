@@ -16,6 +16,8 @@ class SeriesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         shrinkWrap: true,
         padding: EdgeInsets.only(top: 24.h),
         itemBuilder: ((context, index) => InkWell(

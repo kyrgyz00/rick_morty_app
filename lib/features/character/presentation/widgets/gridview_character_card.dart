@@ -7,14 +7,14 @@ import '../../../../internal/helpers/text_helpers.dart';
 import '../screens/character_screen/character_info_screen.dart';
 
 class GridViewcaracterCard extends StatelessWidget {
-  final CharacterModel charactermodelList;
+  final CharacterModel charactermodel;
   final bool colorStatus;
   final int index;
 
   const GridViewcaracterCard({
     Key? key,
     required this.colorStatus,
-    required this.charactermodelList,
+    required this.charactermodel,
     required this.index,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class GridViewcaracterCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: ((context) => CharacterInfoscreen(
-                      charactermodelList: charactermodelList,
+                      charactermodel: charactermodel,
                     ))));
       },
       child: Column(
@@ -36,33 +36,33 @@ class GridViewcaracterCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             child: CircleAvatar(
               radius: 60.r,
-              child: Image.network(charactermodelList.image!),
+              child: Image.network(charactermodel.image!),
             ),
           ),
           SizedBox(
             height: 18.h,
           ),
           Text(
-            charactermodelList
+            charactermodel
                 .status
                 .toString()
                 .replaceFirst("Status.", ""),
             style: TextHelper.w500s10.copyWith(
-                color: charactermodelList.status.toString() ==
+                color: charactermodel.status.toString() ==
                         "Status.ALIVE"
                     ? ColorHelper.CardStatusColorGreen
-                    : charactermodelList.status.toString() ==
+                    : charactermodel.status.toString() ==
                             "Status.UNKNOWN"
                         ? Colors.orange
                         : ColorHelper.CardStatusColorRed),
           ),
           Text(
-            charactermodelList.name!,
+            charactermodel.name!,
             style:
                 TextHelper.w500s14.copyWith(color: ColorHelper.CardNameColor),
           ),
           Text(
-            charactermodelList
+            charactermodel
                 .gender
                 .toString()
                 .replaceFirst("Gender.", ""),

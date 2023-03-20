@@ -10,10 +10,10 @@ import '../../widgets/loaction_info_widget.dart';
 import '../../widgets/profile_stack_card.dart';
 
 class CharacterInfoscreen extends StatelessWidget {
-  final CharacterModel charactermodelList;
+  final CharacterModel charactermodel;
   const CharacterInfoscreen({
     super.key,
-    required this.charactermodelList,
+    required this.charactermodel,
   });
 
   @override
@@ -36,18 +36,18 @@ class CharacterInfoscreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ProfileStackCard(image: charactermodelList.image.toString()),
+            ProfileStackCard(image: charactermodel.image.toString()),
             Text(
-              charactermodelList.name.toString(),
+              charactermodel.name.toString(),
               style: TextHelper.w400s34,
             ),
             SizedBox(height: 24.h),
             Text(
-              charactermodelList.status.toString().replaceFirst("Status.", ""),
+              charactermodel.status.toString().replaceFirst("Status.", ""),
               style: TextHelper.w500s10.copyWith(
-                  color: charactermodelList.status.toString() == "Status.ALIVE"
+                  color: charactermodel.status.toString() == "Status.ALIVE"
                       ? ColorHelper.CardStatusColorGreen
-                      : charactermodelList.status.toString() == "Status.UNKNOWN"
+                      : charactermodel.status.toString() == "Status.UNKNOWN"
                           ? Colors.amber
                           : ColorHelper.CardStatusColorRed),
             ),
@@ -66,10 +66,10 @@ class CharacterInfoscreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: GenderRaceCard(
-                gender: charactermodelList.gender
+                gender: charactermodel.gender
                     .toString()
                     .replaceFirst("Gender.", ""),
-                species: charactermodelList.species
+                species: charactermodel.species
                     .toString()
                     .replaceFirst("Species.", ""),
               ),
@@ -82,7 +82,7 @@ class CharacterInfoscreen extends StatelessWidget {
                 24.h,
               ),
               child: LocationInfoWidget(
-                location: charactermodelList.origin!.name.toString(),
+                location: charactermodel.origin!.name.toString(),
                 title: "Место рождения",
               ),
             ),
@@ -95,7 +95,7 @@ class CharacterInfoscreen extends StatelessWidget {
               ),
               child: LocationInfoWidget(
                 title: "Местоположение",
-                location: charactermodelList.location!.name.toString(),
+                location: charactermodel.location!.name.toString(),
               ),
             ),
             Divider(
@@ -125,7 +125,7 @@ class CharacterInfoscreen extends StatelessWidget {
               ),
             ),
             EdisodesCard(
-              characterModel: charactermodelList,
+              characterModel: charactermodel,
             ),
           ],
         ),

@@ -18,3 +18,8 @@ class EpisodeErrorState extends EpisodesState {
 
   EpisodeErrorState(this.error);
 }
+class EpisodesCharacterFetchedState extends EpisodesState {
+  final List<CharacterModel> episodeCharacterModelList;
+
+  EpisodesCharacterFetchedState(this.episodeCharacterModelList);
+}

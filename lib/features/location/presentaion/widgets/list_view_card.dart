@@ -17,6 +17,7 @@ class LocationListViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.separated(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             itemBuilder: ((context, index) => Column(
                   children: [
                     InkWell(

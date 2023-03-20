@@ -19,6 +19,9 @@ class SearchEpisodeWidget extends StatelessWidget {
       height: 49.h,
       child: TextField(
         controller: controller,
+        onChanged: (value) {
+          
+        },
         decoration: InputDecoration(
           hintText: hinttext,
           hintStyle: TextHelper.w400s16.copyWith(

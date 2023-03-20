@@ -16,9 +16,9 @@ class ListLocationScreen extends StatefulWidget {
   State<ListLocationScreen> createState() => _ListLocationScreenState();
 }
 
-class _ListLocationScreenState extends State<ListLocationScreen> {
-  final LocationBloc locationBloc = LocationBloc();
+LocationBloc locationBloc = LocationBloc();
 
+class _ListLocationScreenState extends State<ListLocationScreen> {
   @override
   void initState() {
     locationBloc.add(GetLocationEvent());
@@ -38,7 +38,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
         },
         builder: (context, state) {
           if (state is LocationLoadingState) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(color: Colors.blue),
             );
           }
@@ -51,6 +51,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                   children: [
                     SearchTextFieldWidget(
                       hinttext: "Найти локацию",
+                      characterModelList: [],
                     ),
                     SizedBox(height: 24.h),
                     Text(

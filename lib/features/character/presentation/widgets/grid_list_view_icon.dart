@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 
 import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
@@ -24,7 +23,7 @@ class GridViewListviewIconCard extends StatelessWidget {
           style: TextHelper.w400s16
               .copyWith(color: ColorHelper.characterCountColor),
         ),
-        Spacer(),
+        const Spacer(),
         IconButton(
           onPressed: (() {
             isListView.value = !isListView.value;
