@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rick_and_morty_app/bottom_nav_bar_widget.dart';
-import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
 import 'package:rick_and_morty_app/features/character/presentation/logic/bloc/personage_bloc.dart';
 import 'package:rick_and_morty_app/features/character/presentation/widgets/grid_list_view_character_cards.dart';
 import 'package:rick_and_morty_app/internal/helpers/color_helper.dart';
@@ -22,7 +20,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
   CharacterBloc personageBloc = CharacterBloc();
 
   ValueNotifier<bool> isListView = ValueNotifier(true);
-  List<CharacterModel> characterModelList = [];
 
   @override
   void initState() {
@@ -39,8 +36,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
         bloc: personageBloc,
         listener: (context, state) {
           if (state is CharacterFetchedState) {
-            characterModelList = state.listOfCharacterModel;
-            
+            searchcharacterModelList = state.listOfCharacterModel;
           }
           if (state is ErrorsState) {
             ScaffoldMessenger.of(context)
@@ -62,25 +58,25 @@ class _CharacterScreenState extends State<CharacterScreen> {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SearchTextFieldWidget(
-                            hinttext: "Найти персонажа",
-                            characterModelList: characterModelList,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 24.h, bottom: 28.h),
-                            child: GridViewListviewIconCard(
-                              isListView: isListView,
-                              countOfCharacter:
-                                  characterModelList.length,
-                            ),
-                          ),
-                          GridLIstViewCharacter(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SearchTextFieldWidget(
+                          hinttext: "Найти персонажа",
+                          characterModelList: state.listOfCharacterModel,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 24.h, bottom: 28.h),
+                          child: GridViewListviewIconCard(
                             isListView: isListView,
-                            characterModelList: characterModelList,
-                          )
-                        ]),
+                            countOfCharacter: searchcharacterModelList.length,
+                          ),
+                        ),
+                        GridLIstViewCharacter(
+                          isListView: isListView,
+                          // characterModelList: characterModelList,
+                        )
+                      ],
+                    ),
                   );
                 }
                 return SizedBox();

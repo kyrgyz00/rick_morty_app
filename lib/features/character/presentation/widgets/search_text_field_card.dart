@@ -6,8 +6,8 @@ import '../../../../internal/helpers/color_helper.dart';
 import '../../../../internal/helpers/text_helpers.dart';
 
 class SearchTextFieldWidget extends StatefulWidget {
-  final List<CharacterModel> characterModelList;
   final String hinttext;
+  final List<CharacterModel> characterModelList;
   const SearchTextFieldWidget({
     Key? key,
     required this.hinttext,
@@ -18,32 +18,42 @@ class SearchTextFieldWidget extends StatefulWidget {
   State<SearchTextFieldWidget> createState() => _SearchTextFieldWidgetState();
 }
 
+List<CharacterModel> searchcharacterModelList = [];
+
 class _SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
-  List<CharacterModel> searchCharacter = [];
+  TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
-    searchCharacter = widget.characterModelList;
-    
+    searchcharacterModelList = widget.characterModelList;
+    controller.addListener(() {
+      setState(() {});
+    });
     super.initState();
   }
 
-  TextEditingController controller = TextEditingController();
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
 
-  void runFilter(String text) async {
-    final query = controller.text;
+  runFilter(String query) async {
+    // query = controller.text;
     List<CharacterModel> results = [];
     if (query.isEmpty) {
       results = widget.characterModelList;
+      // setState(() {});
     } else {
       results = widget.characterModelList
           .where(
               (user) => user.name!.toLowerCase().contains(query.toLowerCase()))
           .toList();
+      // setState(() {});
     }
 
     setState(() {
-      searchCharacter = results;
+      searchcharacterModelList = results;
     });
   }
 
@@ -52,9 +62,14 @@ class _SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
     return SizedBox(
       width: 343.w,
       height: 49.h,
-      child: TextField(
+      child: TextFormField(
         controller: controller,
-        onChanged: (value) => runFilter(value),
+        onChanged: (text) async{
+          print("onchange");
+            runFilter(text);
+          setState(() {
+          });
+        },
         decoration: InputDecoration(
           hintText: widget.hinttext,
           hintStyle: TextHelper.w400s16.copyWith(

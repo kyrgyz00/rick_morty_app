@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rick_and_morty_app/features/character/data/models/character_model.dart';
+import 'package:rick_and_morty_app/features/character/presentation/widgets/search_text_field_card.dart';
 
 import 'character_card.dart';
 import 'gridview_character_card.dart';
 
 class GridLIstViewCharacter extends StatelessWidget {
   final ValueNotifier<bool> isListView;
-  final List<CharacterModel> characterModelList;
-  const GridLIstViewCharacter(
-      {super.key, required this.isListView, required this.characterModelList});
+  // final List<CharacterModel> characterModelList;
+  const GridLIstViewCharacter({
+    super.key,
+    required this.isListView,
+    // required this.characterModelList,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return characterModelList.isNotEmpty
+    
+    return searchcharacterModelList.isNotEmpty
         ? isListView.value
             ? Expanded(
                 child: ListView.separated(
@@ -22,7 +26,7 @@ class GridLIstViewCharacter extends StatelessWidget {
                     itemBuilder: ((context, index) {
                       return CharacterCard(
                         // colorStatus: true,
-                        characterModelList: characterModelList[index],
+                        characterModelList: searchcharacterModelList[index],
                       );
                     }),
                     separatorBuilder: ((context, index) {
@@ -30,13 +34,13 @@ class GridLIstViewCharacter extends StatelessWidget {
                         height: 24.h,
                       );
                     }),
-                    itemCount: characterModelList.length),
+                    itemCount: searchcharacterModelList.length),
               )
             : Expanded(
                 child: GridView.builder(
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
-                  itemCount: characterModelList.length,
+                  itemCount: searchcharacterModelList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisExtent: 226,
@@ -45,7 +49,7 @@ class GridLIstViewCharacter extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) => GridViewcaracterCard(
                     colorStatus: true,
-                    charactermodel: characterModelList[index],
+                    charactermodel: searchcharacterModelList[index],
                     index: index,
                   ),
                 ),
