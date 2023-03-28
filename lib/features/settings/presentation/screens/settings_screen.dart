@@ -88,6 +88,39 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32.h),
+                  child: Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorHelper.whiteE5E5E5,
+                          elevation: 0,
+                          fixedSize: Size(
+                            335.w,
+                            40.h,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(12), // <-- Radius
+                          ),
+                          side: BorderSide(
+                            width: 1,
+                            color: ColorHelper.bluew22A2BD,
+                          )),
+                      onPressed: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => ChangeNameScreen())));
+                      }),
+                      child: Text(
+                        "Изменить",
+                        style: TextHelper.w400s16
+                            .copyWith(color: ColorHelper.bluew22A2BD),
+                      ),
+                    ),
+                  ),
+                ),
                 Divider(
                   thickness: 1,
                   color: ColorHelper.greyF2F2F2,

@@ -64,11 +64,10 @@ class _SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
       height: 49.h,
       child: TextFormField(
         controller: controller,
-        onChanged: (text) async{
+        onChanged: (text) async {
           print("onchange");
-            runFilter(text);
-          setState(() {
-          });
+          runFilter(text);
+          setState(() {});
         },
         decoration: InputDecoration(
           hintText: widget.hinttext,
